@@ -4,7 +4,7 @@ Off the cuff nix flake for wrapping t3codes AppImage and exposes code-cli to it.
 
 ---
 
-## 📦 Usage
+## Usage
 
 ### First Run
 
@@ -28,20 +28,11 @@ Or locally:
 nix run .#t3codes
 ```
 
----
 
-## 🔧 Requirements
-
-* Nix with flakes enabled (if you do not know what that means check out `nix + flakes`)
+**NOTE:** Requires Nix with flakes enabled (if you do not know what that means check out `nix + flakes`)
 
 
-## 📜 License
-
-MIT
-
----
-
-## 🤝 Contributing
+## Contributing
 
 PRs welcome:
 
