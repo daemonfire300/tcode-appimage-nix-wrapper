@@ -41,7 +41,7 @@
         let
           appImage = pkgs.fetchurl {
             url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-x86_64.AppImage";
-            hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+            hash = "sha256-oHKIh+aHsbGVHEoLLjItl6AbVRwvWVlZaIWyHKiekVc=";
           };
           wrapper = pkgs.writeShellApplication {
             meta = { inherit version; };
