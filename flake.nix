@@ -54,15 +54,28 @@
               exec appimage-run "${appImage}" "$@"
             '';
           };
+          codex-login = pkgs.writeShellApplication {
+            name = "codex-login";
+            runtimeInputs = [
+              unstable.codex
+            ];
+            text = ''
+              codex login
+            '';
+          };
         in
         {
+          codex-login = codex-login;
           t3codes = wrapper;
           default = wrapper;
         }
       );
 
       apps = forAllSystems (
-        { system, ... }:
+        {
+          system,
+          ...
+        }:
         let
           app = {
             type = "app";
@@ -71,6 +84,10 @@
         in
         {
           t3codes = app;
+          login = {
+            type = "app";
+            program = self.packages.${system}.codex-login + "/bin/codex-login";
+          };
           default = app;
         }
       );
