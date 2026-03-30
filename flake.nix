@@ -14,7 +14,7 @@
       ...
     }:
     let
-      version = "0.0.13";
+      version = "0.0.15";
       systems = [
         "x86_64-linux"
         # Currently not supported "aarch64-linux"
@@ -41,7 +41,7 @@
         let
           appImage = pkgs.fetchurl {
             url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-x86_64.AppImage";
-            hash = "sha256-oHKIh+aHsbGVHEoLLjItl6AbVRwvWVlZaIWyHKiekVc=";
+            hash = "sha256-Z8y7SWH55+ZC7cRpgo0cdG273rbDiFS3pXQt3up7sDg=";
           };
           wrapper = pkgs.writeShellApplication {
             meta = { inherit version; };
