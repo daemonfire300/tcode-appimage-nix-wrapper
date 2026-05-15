@@ -14,7 +14,7 @@
       ...
     }:
     let
-      version = "0.0.15";
+      version = "0.0.21";
       systems = [
         "x86_64-linux"
         # Currently not supported "aarch64-linux"
@@ -41,7 +41,7 @@
         let
           appImage = pkgs.fetchurl {
             url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-x86_64.AppImage";
-            hash = "sha256-Z8y7SWH55+ZC7cRpgo0cdG273rbDiFS3pXQt3up7sDg=";
+            hash = "sha256-eQCfskpl+JJOyaYY7ogYCi0ZCuWNRcEpseWMniS/LCQ=";
           };
           wrapper = pkgs.writeShellApplication {
             meta = { inherit version; };
@@ -49,6 +49,7 @@
             runtimeInputs = [
               pkgs.appimage-run
               unstable.codex
+              unstable.opencode
             ];
             text = ''
               exec appimage-run "${appImage}" "$@"
@@ -63,9 +64,19 @@
               codex login
             '';
           };
+          opencode-login = pkgs.writeShellApplication {
+            name = "opencode-login";
+            runtimeInputs = [
+              unstable.opencode
+            ];
+            text = ''
+              opencode auth login
+            '';
+          };
         in
         {
           codex-login = codex-login;
+          opencode-login = opencode-login;
           t3codes = wrapper;
           default = wrapper;
         }
@@ -88,7 +99,26 @@
             type = "app";
             program = self.packages.${system}.codex-login + "/bin/codex-login";
           };
+          opencode-login = {
+            type = "app";
+            program = self.packages.${system}.opencode-login + "/bin/opencode-login";
+          };
           default = app;
+        }
+      );
+      devShells = forAllSystems (
+        {
+          pkgs,
+          unstable,
+          ...
+        }:
+        {
+          default = pkgs.mkShell {
+            packages = [
+              unstable.opencode
+              unstable.opencode-desktop
+            ];
+          };
         }
       );
     };
